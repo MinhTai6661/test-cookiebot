@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Allow: /sitemap.xml
+
+Sitemap: https://outsourcing.f-concierge.biz/TaiNM/test/sitemap.xml
