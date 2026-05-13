@@ -4,7 +4,7 @@
 <head>
   <script>
     (function () {
-      const TARGET_NAME = 'testtttt';
+      const TARGET_NAME = 'intercepted_cookie'; // Tên cookie mới mà bạn muốn đặt khi provider đó ghi cookie
       const PROVIDER_DOMAIN = 'test-cookiebot.vercel.app'; // Tên provider bạn muốn nhắm tới
 
       const cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
@@ -236,6 +236,14 @@
     document.cookie = "172.70.240.135_179088=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
     document.cookie = "172.69.150.62_179088=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
     document.cookie = "172.69.150.62_178330=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
+
+
+
+
+    document.cookie = "test_interceptor1=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
+    document.cookie = "test_interceptor2=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
+    document.cookie = "test_interceptor3=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
+    document.cookie = "test_interceptor4=123123123; path=/; expires=Fri, 31 Dec 2026 23:59:59 GMT";
 
 
   </script>
