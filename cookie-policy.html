@@ -2,52 +2,7 @@
 <html class="no-js responsive" lang="en">
 
 <head>
-  <script>
-    (function () {
-      const TARGET_NAME = 'intercepted_cookie'; // Tên cookie mới mà bạn muốn đặt khi provider đó ghi cookie
-      const PROVIDER_DOMAIN = 'test-cookiebot.vercel.app'; // Tên provider bạn muốn nhắm tới
-
-      const cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
-        Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-      console.log(`🚀 ~ cookie-policy.html ~ cookieDescriptor:`, cookieDescriptor);
-
-      Object.defineProperty(document, 'cookie', {
-        get: function () {
-          return cookieDescriptor.get.call(document);
-        },
-        set: function (val) {
-          // Lấy dấu vết (stack trace) để xem ai đang gọi lệnh ghi cookie này
-          const stack = new Error().stack;
-          console.log(`🚀 ~ cookie-policy.html ~ stack:`, stack);
-
-          // Kiểm tra xem trong luồng thực thi có tên domain của provider không
-          if (stack && stack.includes(PROVIDER_DOMAIN)) {
-            const parts = val.split(';');
-            const firstPart = parts[0].split('=');
-
-            if (firstPart.length > 1) {
-              const originalName = firstPart[0].trim();
-              const cookieValue = firstPart.slice(1).join('=');
-
-              // Chỉ đổi tên nếu đúng là script từ provider đó ghi
-              const newCookieString = `${TARGET_NAME}=${cookieValue};${parts.slice(1).join(';')}`;
-
-              console.log(`%c [BẮT GỌN] Provider ${PROVIDER_DOMAIN} đang ghi cookie: ${originalName} -> ${TARGET_NAME}`, "color: white; background: red; padding: 2px 5px;");
-
-              cookieDescriptor.set.call(document, newCookieString);
-              return;
-            }
-          }
-
-          // Nếu không phải provider đó ghi, thì để nó ghi bình thường
-          cookieDescriptor.set.call(document, val);
-        },
-        configurable: true
-      });
-    })();
-  
-  
-  </script>
+  <script src="./shared/js/interceptor-cookie.js"></script>
   <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="f2be8b0c-280d-43fa-8d34-d2b5f1b7b9c2" data-blockingmode="auto" type="text/javascript"></script>
   <script data-cookieconsent="ignore">
     window.dataLayer = window.dataLayer || [];
